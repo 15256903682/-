@@ -9,12 +9,8 @@ import 'element-ui/lib/theme-chalk/index.css'; // 默认主题
 import './assets/css/icon.css';
 import './components/common/directives';
 import 'babel-polyfill';
-import axios from 'axios'
-import VueAxios from 'vue-axios'
-import Video from 'video.js'
-import 'video.js/dist/video-js.css'
+import axios from './utils/request'
 Vue.prototype.$axios = axios;
-// Vue.use(VueAxios, axios);
 Vue.config.productionTip = false;
 Vue.use(VueI18n);
 Vue.use(ElementUI, {
@@ -25,11 +21,11 @@ const i18n = new VueI18n({
     messages
 });
 
-axios.defaults.baseURL = 'http://192.168.1.58:8082';
 //使用钩子函数对路由进行权限跳转
 router.beforeEach((to, from, next) => {
     document.title = `${to.meta.title} | vue-manage-system`;
-    const role = localStorage.getItem('ms_username');
+    // const role = localStorage.getItem('ms_username');
+    const role = true
     if (!role && to.path !== '/login') {
         next('/login');
     } else if (to.meta.permission) {

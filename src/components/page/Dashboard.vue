@@ -175,10 +175,15 @@
 					url: '/ymzs/api/curriculum/homePageincome',
 					params: {}
 				}).then(res => {
-					if (res.data.code == 0) {
-						this.numbel.buyToday= res.data.data.buyToday
-						this.numbel.monthlyIncome = res.data.data.monthlyIncome
-						this.numbel.totalRevenue = res.data.data.totalRevenue
+					try {
+						const {buyToday, monthlyIncome, totalRevenue} = res.data.data
+						if (res.data.code == 0) {
+							this.numbel.buyToday= buyToday
+							this.numbel.monthlyIncome = monthlyIncome
+							this.numbel.totalRevenue = totalRevenue
+						}
+					} catch (err) {
+						this.$message.error(err)
 					}
 				}).catch(error => {
 					console.log(error);
@@ -207,8 +212,8 @@
 					if (res.data.code == 0) {
 						
 						var typeName =[];
-						var Array = res.data.data;
-						Array.forEach((item,index) =>{ 
+						var arr = res.data.data;
+						arr.forEach((item,index) =>{ 
 						  typeName.push(item)
 						});
 						this.options.datasets = typeName
@@ -225,9 +230,9 @@
 				}).then(res => {
 					if (res.data.code == 0) {
 						var time=[]
-						var Array = res.data.data;
-						this.options2.labels= Array[1];
-						this.options2.datasets = Array[0];
+						var arr = res.data.data;
+						this.options2.labels= arr[1];
+						this.options2.datasets = arr[0];
 					}
 				}).catch(error => {
 					console.log(error);
