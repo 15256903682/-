@@ -5,7 +5,8 @@ const service = axios.create({
     // easy-mock服务挂了，暂时不使用了
     baseURL: 'http://192.168.1.58:8082',
     timeout: 5000,
-    headers: {'token': localStorage.getItem("userToken")}
+    headers: {'token': localStorage.getItem("userToken"),
+    'Content-Type': "application/json;charset=utf-8"}
 });
 
 service.interceptors.request.use(
@@ -21,7 +22,7 @@ service.interceptors.request.use(
 service.interceptors.response.use(
     response => {
         if (response.status === 200) {
-            return response.data;
+            return response;
         } else {
             Promise.reject();
         }

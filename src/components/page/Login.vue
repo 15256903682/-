@@ -91,7 +91,10 @@
 							     type: 'success'
 							   });
 							   localStorage.setItem("userToken", res.data.data); //用户token
+							  
 							   localStorage.setItem('ms_username', this.param.phone);
+							   var token =localStorage.getItem("userToken");
+							   console.log(token)
 							   this.$router.push('/');
 							  
 							}else{
