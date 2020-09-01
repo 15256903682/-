@@ -11,27 +11,29 @@
 						</el-table-column>
 						<el-table-column label="视频上传" align="center">
 							<template slot-scope="scope">
-							<div v-if="scope.row.curriculumVideo  == null">
+							<video v-if="scope.row.curriculumVideo"
+								   :src="scope.row.curriculumVideo"
+								   class="video-avatar"
+							       controls="controls">
+							</video>
+							<div v-else>
 								<el-upload action="http://192.168.1.58:8082/ymzs/api/curriculum/addVideo" 
 									v-bind:data="{id:scope.row.id}" 
-									v-bind:on-progress="uploadVideoProcess"
+									v-bind:on-progress="uploadVideoProcess" 
 									v-bind:on-success="handleVideoSuccess" 
-									v-bind:before-upload="beforeUploadVideo" 
+									v-bind:before-upload="beforeUploadVideo.bind(this, scope.$index)"
 									v-bind:show-file-list="false">
 									<el-button size="small" type="primary">点击上传</el-button>
 								</el-upload>
 							</div>
-							<video v-if="scope.row.curriculumVideo  != null"
-							:src="scope.row.curriculumVideo" class="video-avatar"
-							      controls="controls">
-							</video>
+							<el-progress v-if="videoFlag == true && videoIndex ===scope.$index"
+										 type="circle"
+										 v-bind:percentage="videoUploadPercent"
+										 style="margin-top:7px;">
+							</el-progress>
 						</template>
 						</el-table-column>
-						<el-table-column label="是否免费试看" align="center">
-							<template slot-scope="scope">
-								<el-progress :percentage="percentage" :color="customColor"></el-progress>
-							</template>
-						</el-table-column>
+						
 						<el-table-column label="是否免费试看" align="center">
 							<template slot-scope="scope">
 								{{scope.row.isFree === "true" ? '是' : '否'}}
@@ -178,18 +180,16 @@
 		data() {
 			return {
 				//参数
+				videoIndex:"",
 				videoFlag: false,
-				customColor: '#409eff',
 				//是否显示进度条
-				videoUploadPercent: "",
+				videoUploadPercent:0,
 				//进度条的进度，
-				percentage: 0,
+				isShowUploadVideo: false,
 				//显示上传按钮
 				videoForm: {
 					showVideoPath: ''
 				},
-				//头像上传
-				// imageUrl: '',
 				title:"创建课程",
 				CreateOrModify:"立即创建",
 				dialogFormVisible: false,
@@ -237,19 +237,16 @@
 						 viewCounts:[{required: true, message: '请输入初始播放量', trigger: 'blur'}]
 						},
 					tableData: [],
-					currentClassId: '',
+					ismianshow:false,
+					
 				}
 			},
 			mounted() {
-
-				},
-			created() {
 					this.selLecturer(); //获取教师列表
 					this.selVideoType(); //获取视频类型
 					this.getClassList2(); //获取上传课程列表;
-
-
-			},
+				},
+			// created() {},
 				methods: {
 
 					//创建or编辑课程
@@ -462,9 +459,10 @@
 					},
 					
 
-				   
+			
 					//上传视频
-					beforeUploadVideo(file) {
+					beforeUploadVideo(index,file) {
+					   
 						var fileSize = file.size / 1024 / 1024 < 10;
 						if (['video/mp4', 'video/ogg', 'video/flv', 'video/avi', 'video/wmv', 'video/rmvb', 'video/mov'].indexOf(file.type) ==
 							-1) {
@@ -482,37 +480,30 @@
 							});
 							return false;
 						}
+						this.videoIndex =index;
 						this.isShowUploadVideo = false;
 					},
 					//进度条
 					uploadVideoProcess(event, file, fileList) {
-						console.log(JSON.stringify(event)+"||"+ JSON.stringify(file)+"||"+ JSON.stringify(fileList))
-						// this.percentage =  event.percent;
-						this.percentage = event.percent.toFixed(0) * 1;
+						console.log("文件上传时"+JSON.stringify(event)+"||"+ JSON.stringify(file)+"||"+ JSON.stringify(fileList))
+						this.videoFlag = true;
+                        this.videoUploadPercent = Number(file.percentage.toFixed(0) * 1);
 					},
 					//上传成功回调
 					handleVideoSuccess(res, file) {
-						
+					    console.log("文件上传之后"+JSON.stringify(res)+"||"+ JSON.stringify(file))
 						this.isShowUploadVideo = true;
 						this.videoFlag = false;
 						this.videoUploadPercent = 0;
 						//后台上传地址
-						if (res.code == 1) {
-							console.log('执行了', res.data.image_url)
-							this.curgimg = res.data.image_url
-							this.videoForm.showVideoPath = (this.httpurl + res.data.image_url);
-						} else {
-							this.$alert("是否上传", '提示', {
-								confirmButtonText: '确定',
-								callback: action => {
-									this.$message({
-										type: 'info',
-										message: `上传成功`
-									});
-									this.getClassList2();
-								}
+						if (res.code == 0) {
+							this.$message({
+								type: 'info',
+								message: `上传成功`
 							});
-						}
+							this.getClassList2();
+							
+						} 
 					},
 					//删除课程每一章的记录
 					fnMainDelect(index,id,rows){
@@ -534,18 +525,18 @@
 									message: res.data.msg,
 									type: 'success'
 								});
+							}else if(res.data.code == 301){
+								localStorage.removeItem("userToken");
+								localStorage.removeItem("UserId");
+								this.$router.push("/login")
+
+							}else{
+								this.$message({
+									showClose: true,
+									message: res.data.msg,
+									type: 'error'
+								});
 							}
-							// } else if (res.data.code == 301) {
-							// 	localStorage.removeItem("userToken");
-							// 	localStorage.removeItem("UserId");
-							// 	this.$router.push('/login');
-							// } else {
-							// 	this.$message({
-							// 		showClose: true,
-							// 		message: res.data.msg,
-							// 		type: 'error'
-							// 	});
-							// }
 						}).catch(error => {
 							console.log(error);
 						});
@@ -570,18 +561,17 @@
 									message: res.data.msg,
 									type: 'success'
 								});
+							} else if (res.data.code == 301) {
+								localStorage.removeItem("userToken");
+								localStorage.removeItem("UserId");
+								this.$router.push('/login');
+							} else {
+								this.$message({
+									showClose: true,
+									message: res.data.msg,
+									type: 'error'
+								});
 							}
-							// } else if (res.data.code == 301) {
-							// 	localStorage.removeItem("userToken");
-							// 	localStorage.removeItem("UserId");
-							// 	this.$router.push('/login');
-							// } else {
-							// 	this.$message({
-							// 		showClose: true,
-							// 		message: res.data.msg,
-							// 		type: 'error'
-							// 	});
-							// }
 						}).catch(error => {
 							console.log(error);
 						});
@@ -604,17 +594,18 @@
 					resetForm1(formName) {
 						this.$refs[formName].resetFields();
 					},
-					//list下拉
-					handleExpandChange(row, expandRows) {
+					//折叠面板
+					handleExpandChange(row, expandRows ) {
+						
 						const $classTable = this.$refs.classTable
+						
 						if (expandRows.length > 1) {
 							expandRows.forEach(expandRow => {
 								if (row.id !== expandRow.id) {
-									$classTable.toggleRowExpansion(expandRow, false)
+									$classTable.toggleRowExpansion(expandRow, false);			
 								}
-							})
-						}
-						this.currentClassId = row.id
+							})			
+						}	
 					},
 				}
 		}
