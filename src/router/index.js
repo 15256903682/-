@@ -77,9 +77,9 @@ export default new Router({
                 // },
                 {
                     // 国际化组件
-                    path: '/i18n',
-                    component: () => import(/* webpackChunkName: "i18n" */ '../components/page/I18n.vue'),
-                    meta: { title: '国际化' }
+                    path: '/lecturer',
+                    component: () => import(/* webpackChunkName: "lecturer" */ '../components/page/lecturer.vue'),
+                    meta: { title: '上传讲师' }
                 },
                 // {
                 //     // 权限页面

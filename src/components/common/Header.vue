@@ -15,7 +15,7 @@
                     </el-tooltip>
                 </div>
                 <!-- 消息中心 -->
-                <div class="btn-bell">
+                <!-- <div class="btn-bell">
                     <el-tooltip
                         effect="dark"
                         :content="message?`有${message}条未读消息`:`消息中心`"
@@ -26,21 +26,21 @@
                         </router-link>
                     </el-tooltip>
                     <span class="btn-bell-badge" v-if="message"></span>
-                </div>
+                </div> -->
                 <!-- 用户头像 -->
                 <div class="user-avator">
-                    <img src="../../assets/img/img.jpg" />
+                    <img :src="imageUrl" />
                 </div>
                 <!-- 用户名下拉菜单 -->
                 <el-dropdown class="user-name" trigger="click" @command="handleCommand">
                     <span class="el-dropdown-link">
-                        {{username}}
+                        {{name}}
                         <i class="el-icon-caret-bottom"></i>
                     </span>
                     <el-dropdown-menu slot="dropdown">
-                        <a href="https://github.com/lin-xin/vue-manage-system" target="_blank">
-                            <el-dropdown-item>个人中心</el-dropdown-item>
-                        </a>
+                        
+                            <el-dropdown-item divided command="center">个人中心</el-dropdown-item>
+                      
                         <el-dropdown-item divided command="loginout">退出登录</el-dropdown-item>
                     </el-dropdown-menu>
                 </el-dropdown>
@@ -55,14 +55,21 @@ export default {
         return {
             collapse: false,
             fullscreen: false,
-            name: 'linxin',
-            message: 2
+            name: '',
+            message: 2,
+            imageUrl:""
         };
     },
     computed: {
         username() {
             let username = localStorage.getItem('ms_username');
-            return username ? username : this.name;
+            // return username ? username : this.name;
+        }
+    },
+    mounted() {
+        this.getAvatar()
+        if (document.body.clientWidth < 1500) {
+            this.collapseChage();
         }
     },
     methods: {
@@ -71,6 +78,8 @@ export default {
             if (command == 'loginout') {
                 localStorage.removeItem('ms_username');
                 this.$router.push('/login');
+            }else{
+                 this.$router.push('/charts');
             }
         },
         // 侧边栏折叠
@@ -104,13 +113,41 @@ export default {
                 }
             }
             this.fullscreen = !this.fullscreen;
+        },
+        getAvatar(){
+                var userToken = localStorage.getItem("userToken");
+				this.parmas = {
+					token: userToken
+				}
+				this.$axios({
+					method: 'post',
+					url: '/ymzs/api/curriculum/selBasicInf',
+					params: this.parmas
+				}).then(res => {
+					if (res.data.code == 0) {
+                        
+						this.name = res.data.data.name;
+                        this.imageUrl = res.data.data.avatar;
+                        console.log(res.data.data.avatar)
+					} else if (res.data.code == 301) {
+						// sessionStorage.removeItem("userToken");
+						// sessionStorage.removeItem("UserId");
+						// this.$router.push('/login');
+					} else {
+						this.$message({
+							showClose: true,
+							message: res.data.msg,
+							type: 'error'
+						});
+					}
+				}).catch(error => {
+					console.log(error);
+				});
+
         }
+       
     },
-    mounted() {
-        if (document.body.clientWidth < 1500) {
-            this.collapseChage();
-        }
-    }
+    
 };
 </script>
 <style scoped>

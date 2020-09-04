@@ -127,8 +127,8 @@ export default {
                 // },
                 {
                     icon: 'el-icon-lx-global',
-                    index: 'i18n',
-                    title: '国际化功能'
+                    index: 'lecturer',
+                    title: '上传讲师'
                 },
                 // {
                 //     icon: 'el-icon-lx-warn',

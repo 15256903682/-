@@ -6,7 +6,7 @@
 			<el-table-column type="expand">
 				<template slot-scope="props">
 					<el-table :data="props.row.child" style="width: 100%">
-						<el-table-column label="课程章节" align="center"  sortable>
+						<el-table-column label="课程章节" align="center">
 							<template slot-scope="scope">{{ scope.row.curriculumName }}</template>
 						</el-table-column>
 						<el-table-column label="视频上传" align="center">
