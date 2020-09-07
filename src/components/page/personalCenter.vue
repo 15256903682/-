@@ -11,7 +11,7 @@
 						</el-upload>
 					</el-form-item>
 					<el-form-item label="昵称" prop="name">
-						<el-input v-model="ruleForm.name"></el-input>
+						<el-input v-model.trim="ruleForm.name"></el-input>
 					</el-form-item>
 
 					<el-form-item>
@@ -44,6 +44,7 @@
 </template>
 <script>
 	export default {
+		name:"personalCenter",
 		data() {
 			const validateUsername = (rule, value, callback) => {
 				if (value && (!(/^[1][34578]\d{9}$/).test(value) || !(/^[1-9]\d*$/).test(value) || value.length !== 11)) {
@@ -89,9 +90,9 @@
 					key: ''
 				},
 				rules: {
-					adminName: [{
+					name: [{
 						required: true,
-						message: '请输入活动名称',
+						message: '请输入用户昵称',
 						trigger: 'blur'
 					}, {
 						min: 2,
@@ -283,9 +284,8 @@
 	}
 </script>
 
-<style>
+<style rel="stylesheet/scss" scoped>
 	.app-container {
-		
 		padding-left: 10%;
 	}
 
@@ -295,9 +295,7 @@
 		font-size: 18px;
 		color: #333;
 		font-weight: bold;
-
 	}
-
 
 	.avatar-uploader .el-upload {
 		border: 1px dashed #d9d9d9;
@@ -327,4 +325,8 @@
 		height: 178px;
 		display: block;
 	}
+	.el-input--small .el-input__inner{
+		width: 30%;
+	}
+	.el-input{width:30%;}
 </style>

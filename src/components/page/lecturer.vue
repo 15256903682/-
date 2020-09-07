@@ -6,13 +6,13 @@
             style="margin-left: 16px;margin:10px 0 20px"
         >新建讲师</el-button>
         <el-form :inline="true" :model="page" class="demo-form-inline">
-        <el-form-item label="讲师姓名">
-            <el-input v-model="page.lecturerName" placeholder="讲师姓名"></el-input>
-        </el-form-item>
-        <el-form-item>
-            <el-button type="primary" @click="onSubmit()">查询</el-button>
-            <el-button @click="resetForm1('page')">重置</el-button>
-        </el-form-item>
+            <el-form-item label="讲师姓名">
+                <el-input v-model="page.lecturerName" placeholder="讲师姓名"></el-input>
+            </el-form-item>
+            <el-form-item>
+                <el-button type="primary" @click="onSubmit()">查询</el-button>
+                <el-button @click="resetForm1('page')">重置</el-button>
+            </el-form-item>
         </el-form>
         <template>
             <el-table :data="tableData" border style="width: 100%">
@@ -98,7 +98,7 @@
                             v-if="ruleForm.lecturerAvatar"
                             :src="ruleForm.lecturerAvatar"
                             class="avatar"
-                            v-model="ruleForm.lecturerAvatar"
+                            
                         />
                         <i v-else class="el-icon-plus avatar-uploader-icon"></i>
                     </el-upload>
@@ -152,7 +152,7 @@ export default {
                 pageSize: 10,
                 pageNum: 1,
                 token: '',
-                lecturerName:""
+                lecturerName: ''
             },
             delect: {
                 index: '',
@@ -165,7 +165,7 @@ export default {
                 courseCharacteristic: [{ required: true, message: '请输入课程特色', trigger: 'blur' }],
                 workingTime: [{ required: true, message: '请输入从业时长', trigger: 'blur' }],
                 lecturerName: [{ required: true, message: '请输入讲师姓名', trigger: 'blur' }],
-                lecturerAvatar: [{ required: true, message: '请上传讲师头像', trigger: 'blur' }],
+                lecturerAvatar: [{ required: true, message: '请上传讲师头像', trigger: 'blur' }]
             }
         };
     },
@@ -174,7 +174,6 @@ export default {
     },
     methods: {
         Newbuild(el, arr) {
-          
             if (el == 1) {
                 this.dialogFormVisible = true;
                 this.title = '新增讲师';
@@ -215,7 +214,7 @@ export default {
                     });
         },
         //搜索
-        onSubmit(){
+        onSubmit() {
             this.selLecturerList();
         },
         handleAvatarSuccess(res, file) {
@@ -307,30 +306,30 @@ export default {
                 url: '/ymzs/api/introduction/delLecturer',
                 params: this.parmas
             })
-                .then((res) => {
-                    if (res.data.code == 0) {
-                        this.delect.rows.splice(this.delect.index, 1);
-                        this.centerDialogVisible = false;
-                        this.$message({
-                            showClose: true,
-                            message: res.data.msg,
-                            type: 'success'
-                        });
-                    } else if (res.data.code == 301) {
-                        localStorage.removeItem('userToken');
-                        localStorage.removeItem('UserId');
-                        this.$router.push('/login');
-                    } else {
-                        this.$message({
-                            showClose: true,
-                            message: res.data.msg,
-                            type: 'error'
-                        });
-                    }
-                })
-                .catch((error) => {
-                    console.log(error);
-                });
+            .then((res) => {
+                if (res.data.code == 0) {
+                    this.delect.rows.splice(this.delect.index, 1);
+                    this.centerDialogVisible = false;
+                    this.$message({
+                        showClose: true,
+                        message: res.data.msg,
+                        type: 'success'
+                    });
+                } else if (res.data.code == 301) {
+                    localStorage.removeItem('userToken');
+                    localStorage.removeItem('UserId');
+                    this.$router.push('/login');
+                } else {
+                    this.$message({
+                        showClose: true,
+                        message: res.data.msg,
+                        type: 'error'
+                    });
+                }
+            })
+            .catch((error) => {
+                console.log(error);
+            });
         },
         // 获取课程的列表
         handleCurrentChange(cpage) {
@@ -344,7 +343,7 @@ export default {
         resetForm(formName) {
             this.$refs[formName].resetFields();
         },
-        resetForm1(formName){
+        resetForm1(formName) {
             this.$refs[formName].resetFields();
         }
     }

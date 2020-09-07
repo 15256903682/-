@@ -20,8 +20,8 @@ export default new Router({
                     meta: { title: '系统首页' }
                 },
                 {
-                    path: '/icon',
-                    component: () => import(/* webpackChunkName: "icon" */ '../components/page/Icon.vue'),
+                    path: '/financial',
+                    component: () => import(/* webpackChunkName: "financial" */ '../components/page/financial.vue'),
                     meta: { title: '财务管理' }
                 },
                 {
@@ -34,23 +34,6 @@ export default new Router({
                     component: () => import(/* webpackChunkName: "tabs" */ '../components/page/Tabs.vue'),
                     meta: { title: '课程上传' }
                 },
-                // {
-                //     path: '/form',
-                //     component: () => import(/* webpackChunkName: "form" */ '../components/page/BaseForm.vue'),
-                //     meta: { title: '基本表单' }
-                // },
-                // {
-                //     // 富文本编辑器组件
-                //     path: '/editor',
-                //     component: () => import(/* webpackChunkName: "editor" */ '../components/page/VueEditor.vue'),
-                //     meta: { title: '富文本编辑器' }
-                // },
-                // {
-                //     // markdown组件
-                //     path: '/markdown',
-                //     component: () => import(/* webpackChunkName: "markdown" */ '../components/page/Markdown.vue'),
-                //     meta: { title: 'markdown编辑器' }
-                // },
                 {
                     // 图片上传组件
                     path: '/upload',
@@ -59,8 +42,8 @@ export default new Router({
                 },
                 {
                     // vue-schart组件
-                    path: '/charts',
-                    component: () => import(/* webpackChunkName: "chart" */ '../components/page/BaseCharts.vue'),
+                    path: '/personalCenter',
+                    component: () => import(/* webpackChunkName: "personalCenter" */ '../components/page/personalCenter.vue'),
                     meta: { title: '个人中心' }
                 },
                 {
@@ -69,24 +52,13 @@ export default new Router({
                     component: () => import(/* webpackChunkName: "drag" */ '../components/page/DragList.vue'),
                     meta: { title: '拖拽列表' }
                 },
-                // {
-                //     // 拖拽Dialog组件
-                //     path: '/dialog',
-                //     component: () => import(/* webpackChunkName: "dragdialog" */ '../components/page/DragDialog.vue'),
-                //     meta: { title: '拖拽弹框' }
-                // },
+                
                 {
                     // 国际化组件
                     path: '/lecturer',
                     component: () => import(/* webpackChunkName: "lecturer" */ '../components/page/lecturer.vue'),
                     meta: { title: '上传讲师' }
                 },
-                // {
-                //     // 权限页面
-                //     path: '/permission',
-                //     component: () => import(/* webpackChunkName: "permission" */ '../components/page/Permission.vue'),
-                //     meta: { title: '权限测试', permission: true }
-                // },
                 {
                     path: '/404',
                     component: () => import(/* webpackChunkName: "404" */ '../components/page/404.vue'),

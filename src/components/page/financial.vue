@@ -148,7 +148,7 @@
 </template>
 <script>
 	export default {
-		name: 'brandList',
+		name: 'financial',
 		data() {
 			const validateUsername = (rule, value, callback) => {
 				if (value && (!(/^[1][34578]\d{9}$/).test(value) || !(/^[1-9]\d*$/).test(value) || value.length !== 11)) {
@@ -165,7 +165,6 @@
 				CardDate: [], //获取有哪些银行卡
 				total1: null, //提现列表总页数
 				total: null, ////银行卡列表总页数
-
 				numbel: "", //可以提现的金额
 				listQuery: {
 					pageSize: 10,
@@ -175,7 +174,6 @@
 					account: '',
 					name: '',
 					id: '',
-
 				},
 				listQuery1: {
 					pageSize: 10,
@@ -188,7 +186,6 @@
 					account: "",
 					name: ""
 				},
-
 				ruleForm: {
 					thirdPartyId: "",
 					inputMoney: ""
@@ -209,8 +206,6 @@
 						message: '真实姓名不能为空',
 						trigger: 'blur'
 					}],
-
-
 				}
 			}
 		},

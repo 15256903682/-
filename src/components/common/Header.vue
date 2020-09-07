@@ -39,8 +39,7 @@
                     </span>
                     <el-dropdown-menu slot="dropdown">
                         
-                            <el-dropdown-item divided command="center">个人中心</el-dropdown-item>
-                      
+                        <el-dropdown-item divided command="center">个人中心</el-dropdown-item>
                         <el-dropdown-item divided command="loginout">退出登录</el-dropdown-item>
                     </el-dropdown-menu>
                 </el-dropdown>
@@ -128,7 +127,7 @@ export default {
                         
 						this.name = res.data.data.name;
                         this.imageUrl = res.data.data.avatar;
-                        console.log(res.data.data.avatar)
+                        // console.log(res.data.data.avatar)
 					} else if (res.data.code == 301) {
 						// sessionStorage.removeItem("userToken");
 						// sessionStorage.removeItem("UserId");
