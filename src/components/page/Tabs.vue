@@ -17,7 +17,7 @@
 							       controls="controls">
 							</video>
 							<div v-else>
-								<el-upload action="http://192.168.1.58:8082/ymzs/api/curriculum/addVideo" 
+								<el-upload action="http://api.11mei.cn/ymzs/api/curriculum/addVideo" 
 									v-bind:data="{id:scope.row.id}" 
 									v-bind:on-progress="uploadVideoProcess" 
 									v-bind:on-success="handleVideoSuccess" 
@@ -53,7 +53,7 @@
 				<template slot-scope="scope">{{scope.row.parent.curriculumName }}</template>
 			</el-table-column>
 			<el-table-column label="讲师姓名" align="center">
-				<template slot-scope="scope">{{ scope.row.parent.lecturerName }}</template>
+				<template slot-scope="scope">{{ scope.row.parent.lecturerName ||"暂无"}}</template>
 			</el-table-column>
 			<el-table-column label="课程类型" align="center">
 				<template slot-scope="scope">
@@ -133,14 +133,21 @@
 					</el-radio-group>
 				</el-form-item>
 				<el-form-item label="总价" prop="price">
-					<el-input v-model="ruleForm.price" placeholder="请输入总价"></el-input>
+					<el-select v-model="ruleForm.price" placeholder="请选择总价">
+						<el-option label="0" value="0"></el-option>
+						<el-option label="1" value="1"></el-option>
+						<el-option label="6" value="6"></el-option>
+						<el-option label="30" value="30"></el-option>
+					</el-select>
+					<!-- <el-input v-model="ruleForm.price" placeholder="请输入总价"></el-input> -->
 				</el-form-item>
 				<el-form-item label="课程封面" prop="curriculumCoverPlan">
-					<el-upload class="avatar-uploader" action="http://192.168.1.58:8082/ymzs/api/curriculum/addImage" :show-file-list="false"
+					<el-upload class="avatar-uploader" action="http://api.11mei.cn/ymzs/api/curriculum/addImage" :show-file-list="false"
 					 :on-success="handleAvatarSuccess" :before-upload="beforeAvatarUpload">
-						<img v-if="ruleForm.curriculumCoverPlan" :src="ruleForm.curriculumCoverPlan" class="avatar" v-model="ruleForm.curriculumCoverPlan">
+						<img v-if="ruleForm.curriculumCoverPlan" :src="ruleForm.curriculumCoverPlan" class="avatar" >
 						<i v-else class="el-icon-plus avatar-uploader-icon"></i>
 					</el-upload>
+					
 				</el-form-item>
 				<el-form-item label="课程简介" prop="curriculumIntroduce">
 					<el-input type="textarea" v-model="ruleForm.curriculumIntroduce" placeholder="请输入课程简介"></el-input>
@@ -159,7 +166,7 @@
 					<el-input v-model="ruleForm1.curriculumName" placeholder="请上传课节的名称"></el-input>
 				</el-form-item>
 				<el-form-item label="章节排序" prop="sortNum">
-					<el-input v-model="ruleForm1.sortNum" placeholder="请上传章节排序,如：1"></el-input>
+					<el-input v-model="ruleForm1.sortNum" type='number' :min='1' placeholder="请上传章节排序,如果是第一章节，就输入纯数字：1"></el-input>
 				</el-form-item>
 				<el-form-item label="是否免费试看" prop="isFree">
 					<el-switch v-model="ruleForm1.isFree"></el-switch>
@@ -179,6 +186,7 @@
 		name: 'Table',
 		data() {
 			return {
+				imageUrl: '',
 				//参数
 				videoIndex:"",
 				videoFlag: false,
@@ -253,9 +261,19 @@
 					fnFound(el,arr){
 					     if(el == 1){
 							 this.dialogFormVisible = true;
-							 this.ruleForm = {};//清空ruleForm的值
-							 this.title = "创建课程";
-							 this.CreateOrModify = "立即创建";
+							//  this.ruleForm = {};//清空ruleForm的值
+							this.ruleForm.curriculumCoverPlan ="";
+							this.ruleForm.curriculumName = "";
+							this.ruleForm.lecturer= "";
+							this.ruleForm.isTop  = "1";
+							this.ruleForm.isRecommend= "1";
+							this.ruleForm.type= "";
+							this.ruleForm.price="";
+							this.ruleForm.viewCounts="";
+							this.ruleForm.curriculumIntroduce="";
+							this.ruleForm.curriculumCoverPlan= "";
+							this.title = "创建课程";
+							this.CreateOrModify = "立即创建";
 							
 						 }else{
 							this.dialogFormVisible = true;//打开弹框	
@@ -394,10 +412,14 @@
 						}
 						
 					},
+
+					//   
                     //上传封面
 					handleAvatarSuccess(res, file) {
-						this.ruleForm.curriculumCoverPlan = URL.createObjectURL(file.raw);
-						this.ruleForm.curriculumCoverPlan = res.data;
+						// this.ruleForm.curriculumCoverPlan = URL.createObjectURL(file.raw);
+						this.ruleForm.curriculumCoverPlan = "https://oss.shal.club/avatarRandom/18.jpg";
+						// this.ruleForm.curriculumCoverPlan = res.data;
+						console.log(this.ruleForm.curriculumCoverPlan)
 					},
 					beforeAvatarUpload(file) {
 						// const isJPG = file.type === 'image/jpeg';

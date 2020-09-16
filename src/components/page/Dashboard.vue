@@ -7,7 +7,7 @@
 					<div class="grid-content grid-con-1">
 						<i class="el-icon-lx-people grid-con-icon"></i>
 						<div class="grid-cont-right">
-							<div class="grid-num">{{numbel.buyToday}}</div>
+							<div class="grid-num">{{numbel.buyToday||0}}</div>
 							<div>今日购买</div>
 						</div>
 					</div>
@@ -18,7 +18,7 @@
 					<div class="grid-content grid-con-2">
 						<i class="el-icon-lx-notice grid-con-icon"></i>
 						<div class="grid-cont-right">
-							<div class="grid-num">{{numbel.monthlyIncome}}</div>
+							<div class="grid-num">{{numbel.monthlyIncome||0}}</div>
 							<div>本月收入</div>
 						</div>
 					</div>
@@ -40,7 +40,7 @@
 					<div class="grid-content grid-con-4">
 						<i class="el-icon-c-scale-to-original grid-con-icon"></i>
 						<div class="grid-cont-right">
-							<div class="grid-num">5000</div>
+							<div class="grid-num">0</div>
 							<div>余额</div>
 						</div>
 					</div>

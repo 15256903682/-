@@ -89,18 +89,17 @@
                 <el-form-item label="讲师头像" prop="lecturerAvatar">
                     <el-upload
                         class="avatar-uploader"
-                        action="http://192.168.1.58:8082/ymzs/api/curriculum/addImage"
+                        action="http://api.11mei.cn/ymzs/api/curriculum/addImage"
                         :show-file-list="false"
                         :on-success="handleAvatarSuccess"
                         :before-upload="beforeAvatarUpload"
                     >
-                        <img
-                            v-if="ruleForm.lecturerAvatar"
-                            :src="ruleForm.lecturerAvatar"
-                            class="avatar"
-                            
-                        />
-                        <i v-else class="el-icon-plus avatar-uploader-icon"></i>
+                    <img
+                        v-if="ruleForm.lecturerAvatar"
+                        :src="ruleForm.lecturerAvatar"
+                        class="avatar"
+                    />
+                    <i v-else class="el-icon-plus avatar-uploader-icon"></i>
                     </el-upload>
                 </el-form-item>
                 <el-form-item label="个人优势" prop="personalAdvantage">
@@ -244,16 +243,16 @@ export default {
                                 url: '/ymzs/api/introduction/insertLecturer',
                                 params: this.ruleForm
                             })
-                                .then((res) => {
-                                    if (res.data.code == 0) {
-                                        this.dialogFormVisible = false;
-                                        this.$refs[formName].resetFields();
-                                        this.selLecturerList();
-                                    }
-                                })
-                                .catch((error) => {
-                                    console.log(error);
-                                });
+                            .then((res) => {
+                                if (res.data.code == 0) {
+                                    this.dialogFormVisible = false;
+                                    this.$refs[formName].resetFields();
+                                    this.selLecturerList();
+                                }
+                            })
+                            .catch((error) => {
+                                console.log(error);
+                            });
                         } else {
                             console.log('error submit!!');
                             return false;

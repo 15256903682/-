@@ -4,7 +4,7 @@
 			<el-tab-pane label="账号信息" name="first" class="tabs1 is-active">
 				<el-form :model="ruleForm" :rules="rules" ref="ruleForm" label-width="100px" class="demo-ruleForm">
 					<el-form-item label="头像" prop="img">
-						<el-upload class="avatar-uploader" v-model="ruleForm.img" action="http://192.168.1.58:8082/ymzs/api/curriculum/addImage"
+						<el-upload class="avatar-uploader" v-model="ruleForm.img" action="http://api.11mei.cn/ymzs/api/curriculum/addImage"
 						 :show-file-list="false" :on-success="handleAvatarSuccess" :before-upload="beforeAvatarUpload">
 							<img v-if="imageUrl" :src="imageUrl" class="avatar">
 							<i v-else class="el-icon-plus avatar-uploader-icon"></i>
@@ -273,7 +273,8 @@
 				return isLt2M;
 			},
 			handleAvatarSuccess(res, file) {
-				this.imageUrl = URL.createObjectURL(file.raw);
+				// this.imageUrl = URL.createObjectURL(file.raw);
+				this.imageUrl = "https://oss.shal.club/avatarRandom/18.jpg";//因为现在没有头像，所以先放了个固定的
 				this.ruleForm.img = res.data;
 			},
 

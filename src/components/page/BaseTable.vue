@@ -17,21 +17,21 @@
                 </template>
                 <el-form-item>
                     <el-button type="primary" @click="onSubmit('listQuery')">查询</el-button>
-                    <el-button @click="resetForm('listQuery')">重置</el-button>
+                    <!-- <el-button @click="resetForm('listQuery')">重置</el-button> -->
                 </el-form-item>
             </el-form>
-            <el-table :data="tableData" border style="width: 100%">
-                <el-table-column prop="id" label="编号" width="180">
+            <el-table :data="tableData" border style="width: 100%" >
+                <el-table-column prop="id" label="编号" width="80" align="center">
                     <template slot-scope="scope">
                         <p>{{scope.$index}}</p>
                     </template>
                 </el-table-column>
-                <el-table-column prop="id" label="课程id"></el-table-column>
-                <el-table-column prop="createTime" label="购买日期"></el-table-column>
-                <el-table-column prop="curriculumName" label="课程名称"></el-table-column>
-                <el-table-column prop="lecturerName" label="讲师姓名"></el-table-column>
-                <el-table-column prop="price" label="价格"></el-table-column>
-                <el-table-column prop="coverAddres" label="课程封面">
+                <el-table-column prop="id" label="课程id" width="100" align="center"></el-table-column>
+                <el-table-column prop="createTime" label="购买日期" align="center"></el-table-column>
+                <el-table-column prop="curriculumName" label="课程名称" align="center"></el-table-column>
+                <el-table-column prop="lecturerName" label="讲师姓名" align="center"></el-table-column>
+                <el-table-column prop="price" label="价格" align="center"></el-table-column>
+                <el-table-column prop="coverAddres" label="课程封面" align="center">
                     <template slot-scope="scope">
                         <el-image
                             class="table-td-thumb"
@@ -41,7 +41,7 @@
                         ></el-image>
                     </template>
                 </el-table-column>
-                <el-table-column prop="type" label="课程类型">
+                <el-table-column prop="type" label="课程类型" align="center">
                     <template slot-scope="scope">
                         <p v-if="tableData[scope.$index].type==1">医美咨询</p>
                         <p v-if="tableData[scope.$index].type==2">医美营销</p>
@@ -49,7 +49,7 @@
                         <p v-if="tableData[scope.$index].type==4">运营管理</p>
                     </template>
                 </el-table-column>
-                <el-table-column prop="content" label="评论"></el-table-column>
+                <el-table-column prop="content" label="评论" align="center"></el-table-column>
             </el-table>
             <el-pagination
                 background
