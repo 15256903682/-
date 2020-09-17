@@ -80,6 +80,10 @@ export default {
                     icon: 'el-icon-lx-global',
                     index: 'lecturer',
                     title: '上传讲师'
+                },{
+                    icon: 'el-icon-lx-global',
+                    index: 'cropper',
+                    title: '图片裁剪'
                 },
               
             ]

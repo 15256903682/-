@@ -4,7 +4,7 @@
 			<el-tab-pane label="账号信息" name="first" class="tabs1 is-active">
 				<el-form :model="ruleForm" :rules="rules" ref="ruleForm" label-width="100px" class="demo-ruleForm">
 					<el-form-item label="头像" prop="img">
-						<el-upload class="avatar-uploader" v-model="ruleForm.img" action="http://api.11mei.cn/ymzs/api/curriculum/addImage"
+						<el-upload class="avatar-uploader" v-model="ruleForm.img" action="http://192.168.1.58:8082/ymzs/api/curriculum/addImage"
 						 :show-file-list="false" :on-success="handleAvatarSuccess" :before-upload="beforeAvatarUpload">
 							<img v-if="imageUrl" :src="imageUrl" class="avatar">
 							<i v-else class="el-icon-plus avatar-uploader-icon"></i>

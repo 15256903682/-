@@ -10,9 +10,15 @@ import './assets/css/icon.css';
 import './components/common/directives';
 import 'babel-polyfill';
 import axios from './utils/request'
+import VueCropper from 'vue-cropper'
+import shnUI from 'shn-vue-ui'
+
+
 Vue.prototype.$axios = axios;
 Vue.config.productionTip = false;
 Vue.use(VueI18n);
+Vue.use(VueCropper);
+Vue.use(shnUI);
 Vue.use(ElementUI, {
     size: 'small'
 });

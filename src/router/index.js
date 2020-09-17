@@ -60,6 +60,12 @@ export default new Router({
                     meta: { title: '上传讲师' }
                 },
                 {
+                    // 国际化组件
+                    path: '/cropper',
+                    component: () => import(/* webpackChunkName: "cropper" */ '../components/page/cropper.vue'),
+                    meta: { title: '图片裁剪' }
+                },
+                {
                     path: '/404',
                     component: () => import(/* webpackChunkName: "404" */ '../components/page/404.vue'),
                     meta: { title: '404' }

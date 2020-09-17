@@ -17,7 +17,7 @@
 							       controls="controls">
 							</video>
 							<div v-else>
-								<el-upload action="http://api.11mei.cn/ymzs/api/curriculum/addVideo" 
+								<el-upload action="http://192.168.1.58:8082/ymzs/api/curriculum/addVideo" 
 									v-bind:data="{id:scope.row.id}" 
 									v-bind:on-progress="uploadVideoProcess" 
 									v-bind:on-success="handleVideoSuccess" 
@@ -142,7 +142,7 @@
 					<!-- <el-input v-model="ruleForm.price" placeholder="请输入总价"></el-input> -->
 				</el-form-item>
 				<el-form-item label="课程封面" prop="curriculumCoverPlan">
-					<el-upload class="avatar-uploader" action="http://api.11mei.cn/ymzs/api/curriculum/addImage" :show-file-list="false"
+					<el-upload class="avatar-uploader" action="http://192.168.1.58:8082/ymzs/api/curriculum/addImage" :show-file-list="false"
 					 :on-success="handleAvatarSuccess" :before-upload="beforeAvatarUpload">
 						<img v-if="ruleForm.curriculumCoverPlan" :src="ruleForm.curriculumCoverPlan" class="avatar" >
 						<i v-else class="el-icon-plus avatar-uploader-icon"></i>
