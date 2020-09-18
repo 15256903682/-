@@ -61,8 +61,8 @@ export default new Router({
                 },
                 {
                     // 国际化组件
-                    path: '/cropper',
-                    component: () => import(/* webpackChunkName: "cropper" */ '../components/page/cropper.vue'),
+                    path: '/index',
+                    component: () => import(/* webpackChunkName: "index" */ '../components/page/index.vue'),
                     meta: { title: '图片裁剪' }
                 },
                 {

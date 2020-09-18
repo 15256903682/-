@@ -82,7 +82,7 @@ export default {
                     title: '上传讲师'
                 },{
                     icon: 'el-icon-lx-global',
-                    index: 'cropper',
+                    index: 'index',
                     title: '图片裁剪'
                 },
               
