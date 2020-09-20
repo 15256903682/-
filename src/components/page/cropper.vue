@@ -67,18 +67,18 @@ export default {
                 original: false, // 上传图片按照原始比例渲染  (默认:false)
                 canMoveBox: true, // 截图框能否拖动  (默认:true)
                 autoCrop: true, // 是否默认生成截图框  (默认:false)
-                autoCropWidth: 480, // 默认生成截图框宽度  (默认:80%)
-                autoCropHeight: 320, // 默认生成截图框高度  (默认:80%)
+                autoCropWidth: 400, // 默认生成截图框宽度  (默认:80%)
+                autoCropHeight: 400, // 默认生成截图框高度  (默认:80%)
                 fixedBox: false, // 固定截图框大小 不允许改变  (默认:false)
                 fixed: true, // 是否开启截图框宽高固定比例  (默认:true)
-                fixedNumber: [1.5, 1], // 截图框比例  (默认:[1:1])
+                // fixedNumber: [1, 1], // 截图框比例  (默认:[1:1])
                 enlarge: 1
             },
-            isDisabled: false,
+            // isDisabled: false,
             downImg: '#'
         };
     },
-    props: ['imgFile', 'fixedNumber'],
+    props: ['imgFile', 'fixedNumber', 'isDisabled'],
     methods: {
         changeScale(num) {
             // 图片缩放
@@ -107,7 +107,6 @@ export default {
            
             // 将剪裁好的图片回传给父组件
             event.preventDefault();
-            this.isDisabled = true;
             let that = this;
             if (type === 'blob') {
                 this.$refs.cropper.getCropBlob((data) => {
