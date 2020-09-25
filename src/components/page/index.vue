@@ -134,15 +134,15 @@ export default {
             this.isDisabled = true;
             this.$axios({
                 method: 'post',
-                url: 'http://api.11mei.cn/ymzs/api/curriculum/addImageBase64',
-                data: {
+                url: 'http://192.168.1.58:8082/ymzs/api/curriculum/addImageBase64',
+                params: {
                     base64: data,
-                    type: ''
+                    type: ""
                 }
             })
                 .then((res) => {
                     if (res.data.code == 0) {
-                        this.imageUrl = res.data.data;
+                        this.imageUrl = res.data.data; 
                         this.cropperModel = false;
                         this.$message({
                             showClose: true,
@@ -157,7 +157,7 @@ export default {
                 .finally(() => {
                     this.isDisabled = false;
                     this.cropperModel = false;
-                    this.imageUrl = this.file.url;
+                    // this.imageUrl = this.file.url;
                 });
         },
 

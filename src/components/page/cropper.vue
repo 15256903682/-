@@ -27,7 +27,7 @@
             <!-- 预览框 -->
             <div
                 class="show-preview"
-                :style="{'width': '500px', 'height': '400px',  'overflow': 'hidden', 'margin': '0 25px', 'display':'flex', 'align-items' : 'center'}"
+                :style="{'width': '1100px', 'height': '400px',  'overflow': 'hidden', 'margin': '0 25px', 'display':'flex', 'align-items' : 'center'}"
             >
                 <div :style="previews.div" class="preview">
                     <img :src="previews.url" :style="previews.img" />
@@ -65,12 +65,12 @@ export default {
                 outputType: 'png', // 裁剪生成图片的格式  (默认:jpg)
                 canMove: true, // 上传图片是否可以移动  (默认:true)
                 original: false, // 上传图片按照原始比例渲染  (默认:false)
-                canMoveBox: true, // 截图框能否拖动  (默认:true)
+                canMoveBox: false, // 截图框能否拖动  (默认:true)
                 autoCrop: true, // 是否默认生成截图框  (默认:false)
-                autoCropWidth: 400, // 默认生成截图框宽度  (默认:80%)
-                autoCropHeight: 400, // 默认生成截图框高度  (默认:80%)
-                fixedBox: false, // 固定截图框大小 不允许改变  (默认:false)
-                fixed: true, // 是否开启截图框宽高固定比例  (默认:true)
+                autoCropWidth:398, // 默认生成截图框宽度  (默认:80%)
+                autoCropHeight: 398, // 默认生成截图框高度  (默认:80%)
+                fixedBox: true, // 固定截图框大小 不允许改变  (默认:false)
+                // fixed: true, // 是否开启截图框宽高固定比例  (默认:true)
                 // fixedNumber: [1, 1], // 截图框比例  (默认:[1:1])
                 enlarge: 1
             },
